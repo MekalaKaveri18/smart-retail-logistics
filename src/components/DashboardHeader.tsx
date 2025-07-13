@@ -1,13 +1,14 @@
 
-import { Bell, Settings, Search, User, Presentation } from 'lucide-react';
+import { Bell, Settings, Search, User, Presentation, Download } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 
 interface DashboardHeaderProps {
   onPresentationMode?: () => void;
+  onExportPresentation?: () => void;
 }
 
-const DashboardHeader = ({ onPresentationMode }: DashboardHeaderProps) => {
+const DashboardHeader = ({ onPresentationMode, onExportPresentation }: DashboardHeaderProps) => {
   return (
     <header className="bg-white/80 backdrop-blur-sm border-b border-slate-200 sticky top-0 z-50">
       <div className="container mx-auto px-6 py-4">
@@ -32,6 +33,16 @@ const DashboardHeader = ({ onPresentationMode }: DashboardHeaderProps) => {
                 className="pl-10 w-80 bg-slate-50 border-slate-200"
               />
             </div>
+            
+            <Button 
+              variant="outline" 
+              size="sm"
+              onClick={onExportPresentation}
+              className="border-emerald-200 text-emerald-700 hover:bg-emerald-50"
+            >
+              <Download className="w-4 h-4 mr-2" />
+              Export PPT
+            </Button>
             
             <Button 
               variant="ghost" 

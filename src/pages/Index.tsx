@@ -8,6 +8,7 @@ import PerformanceMetrics from '@/components/PerformanceMetrics';
 import WarehouseAutomation from '@/components/WarehouseAutomation';
 import OrderTracking from '@/components/OrderTracking';
 import PresentationMode from '@/components/PresentationMode';
+import PresentationExport from '@/components/PresentationExport';
 import { toast } from 'sonner';
 
 const Index = () => {
@@ -19,6 +20,7 @@ const Index = () => {
   });
   
   const [isPresentationMode, setIsPresentationMode] = useState(false);
+  const [showExportView, setShowExportView] = useState(false);
 
   useEffect(() => {
     // Simulate real-time data updates
@@ -31,7 +33,6 @@ const Index = () => {
       }));
     }, 5000);
 
-    // Welcome message
     setTimeout(() => {
       toast.success("Supply Chain Intelligence System Online", {
         description: "Real-time analytics and optimization active"
@@ -48,8 +49,19 @@ const Index = () => {
     });
   };
 
+  const handleExportPresentation = () => {
+    setShowExportView(true);
+    toast.success("Presentation Export Ready", {
+      description: "Complete content with voiceover scripts available"
+    });
+  };
+
   const handleExitPresentation = () => {
     setIsPresentationMode(false);
+  };
+
+  const handleExitExport = () => {
+    setShowExportView(false);
   };
 
   if (isPresentationMode) {
@@ -66,9 +78,26 @@ const Index = () => {
     );
   }
 
+  if (showExportView) {
+    return (
+      <div>
+        <PresentationExport />
+        <button
+          onClick={handleExitExport}
+          className="fixed top-4 right-4 z-50 bg-black/50 text-white px-4 py-2 rounded-lg hover:bg-black/70 transition-colors"
+        >
+          Back to Dashboard
+        </button>
+      </div>
+    );
+  }
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50">
-      <DashboardHeader onPresentationMode={handlePresentationMode} />
+      <DashboardHeader 
+        onPresentationMode={handlePresentationMode}
+        onExportPresentation={handleExportPresentation}
+      />
       
       <main className="container mx-auto px-6 py-8 space-y-8">
         <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-4 gap-6">
