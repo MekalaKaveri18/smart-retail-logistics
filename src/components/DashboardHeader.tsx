@@ -1,9 +1,13 @@
 
-import { Bell, Settings, Search, User } from 'lucide-react';
+import { Bell, Settings, Search, User, Presentation } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 
-const DashboardHeader = () => {
+interface DashboardHeaderProps {
+  onPresentationMode?: () => void;
+}
+
+const DashboardHeader = ({ onPresentationMode }: DashboardHeaderProps) => {
   return (
     <header className="bg-white/80 backdrop-blur-sm border-b border-slate-200 sticky top-0 z-50">
       <div className="container mx-auto px-6 py-4">
@@ -28,6 +32,16 @@ const DashboardHeader = () => {
                 className="pl-10 w-80 bg-slate-50 border-slate-200"
               />
             </div>
+            
+            <Button 
+              variant="ghost" 
+              size="sm"
+              onClick={onPresentationMode}
+              className="bg-gradient-to-r from-blue-600 to-purple-600 text-white hover:from-blue-700 hover:to-purple-700"
+            >
+              <Presentation className="w-4 h-4 mr-2" />
+              Present
+            </Button>
             
             <Button variant="ghost" size="sm" className="relative">
               <Bell className="w-5 h-5" />

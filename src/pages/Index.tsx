@@ -7,6 +7,7 @@ import DeliveryOptimization from '@/components/DeliveryOptimization';
 import PerformanceMetrics from '@/components/PerformanceMetrics';
 import WarehouseAutomation from '@/components/WarehouseAutomation';
 import OrderTracking from '@/components/OrderTracking';
+import PresentationMode from '@/components/PresentationMode';
 import { toast } from 'sonner';
 
 const Index = () => {
@@ -16,6 +17,8 @@ const Index = () => {
     deliveryEfficiency: 94.2,
     warehouseUtilization: 87.5
   });
+  
+  const [isPresentationMode, setIsPresentationMode] = useState(false);
 
   useEffect(() => {
     // Simulate real-time data updates
@@ -38,9 +41,34 @@ const Index = () => {
     return () => clearInterval(interval);
   }, []);
 
+  const handlePresentationMode = () => {
+    setIsPresentationMode(true);
+    toast.success("Presentation Mode Activated", {
+      description: "Use arrow keys to navigate and Enter to play voice narration"
+    });
+  };
+
+  const handleExitPresentation = () => {
+    setIsPresentationMode(false);
+  };
+
+  if (isPresentationMode) {
+    return (
+      <div>
+        <PresentationMode />
+        <button
+          onClick={handleExitPresentation}
+          className="fixed top-4 right-4 z-50 bg-black/50 text-white px-4 py-2 rounded-lg hover:bg-black/70 transition-colors"
+        >
+          Exit Presentation
+        </button>
+      </div>
+    );
+  }
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50">
-      <DashboardHeader />
+      <DashboardHeader onPresentationMode={handlePresentationMode} />
       
       <main className="container mx-auto px-6 py-8 space-y-8">
         <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-4 gap-6">
